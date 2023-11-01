@@ -57,6 +57,7 @@ project.release?.publisher.publishToGo({
       run: 'mv .repo/datadog/dist dist',
     },
   ],
+  githubTokenSecret: 'GITHUB_TOKEN',
   gitBranch: 'constructs',
 });
 
