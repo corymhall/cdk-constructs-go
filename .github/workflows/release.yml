@@ -104,6 +104,8 @@ jobs:
         run: cd .repo/datadog && npx projen package:go
       - name: Collect go Artifact
         run: mv .repo/datadog/dist dist
+      - name: Collect go Artifact 2
+        run: mv .repo/cdk-monitoring-constructs/dist dist
       - name: Release
         env:
           GIT_BRANCH: constructs

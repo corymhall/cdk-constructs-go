@@ -157,6 +157,26 @@
         }
       ]
     },
+    "monitoring-build": {
+      "name": "monitoring-build",
+      "steps": [
+        {
+          "exec": "git submodule update"
+        },
+        {
+          "cwd": "cdk-monitoring-constructs",
+          "exec": "yarn install --frozen-lockfile"
+        },
+        {
+          "cwd": "cdk-monitoring-constructs",
+          "exec": "yarn compile"
+        },
+        {
+          "cwd": "cdk-monitoring-constructs",
+          "exec": "yarn jsii-pacmak --target go --force-target"
+        }
+      ]
+    },
     "package": {
       "name": "package",
       "description": "Creates the distribution package",
@@ -179,6 +199,9 @@
         },
         {
           "spawn": "datadog-build"
+        },
+        {
+          "spawn": "monitoring-build"
         }
       ]
     },

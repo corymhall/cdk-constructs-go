@@ -38,6 +38,26 @@ project.postCompileTask.spawn(project.addTask('datadog-build', {
   exec: 'rm -rf test && yarn projen build',
 }));
 
+project.postCompileTask.spawn(project.addTask('monitoring-build', {
+  steps: [
+    {
+      exec: 'git submodule update',
+    },
+    {
+      cwd: 'cdk-monitoring-constructs',
+      exec: 'yarn install --frozen-lockfile',
+    },
+    {
+      cwd: 'cdk-monitoring-constructs',
+      exec: 'yarn compile',
+    },
+    {
+      cwd: 'cdk-monitoring-constructs',
+      exec: 'yarn jsii-pacmak --target go --force-target',
+    },
+  ],
+}));
+
 project.release?.publisher.publishToGo({
   prePublishSteps: [
     {
@@ -55,6 +75,10 @@ project.release?.publisher.publishToGo({
     {
       name: 'Collect go Artifact',
       run: 'mv .repo/datadog/dist dist',
+    },
+    {
+      name: 'Collect go Artifact 2',
+      run: 'mv .repo/cdk-monitoring-constructs/dist dist',
     },
   ],
   gitBranch: 'constructs',
