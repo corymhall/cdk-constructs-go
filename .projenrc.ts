@@ -78,7 +78,7 @@ project.release?.publisher.publishToGo({
     },
     {
       name: 'Collect go Artifact 2',
-      run: 'mv .repo/cdk-monitoring-constructs/dist dist',
+      run: 'mv .repo/cdk-monitoring-constructs/dist/go/cdkmonitoringconstructs dist/go',
     },
   ],
   gitBranch: 'constructs',
