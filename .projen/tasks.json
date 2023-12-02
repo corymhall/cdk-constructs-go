@@ -170,10 +170,6 @@
         {
           "cwd": "cdk-monitoring-constructs",
           "exec": "yarn compile"
-        },
-        {
-          "cwd": "cdk-monitoring-constructs",
-          "exec": "yarn jsii-pacmak --target go --force-target"
         }
       ]
     },

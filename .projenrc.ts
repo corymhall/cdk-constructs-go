@@ -51,10 +51,6 @@ project.postCompileTask.spawn(project.addTask('monitoring-build', {
       cwd: 'cdk-monitoring-constructs',
       exec: 'yarn compile',
     },
-    {
-      cwd: 'cdk-monitoring-constructs',
-      exec: 'yarn jsii-pacmak --target go --force-target',
-    },
   ],
 }));
 
@@ -75,6 +71,10 @@ project.release?.publisher.publishToGo({
     {
       name: 'Collect go Artifact',
       run: 'mv .repo/datadog/dist dist',
+    },
+    {
+      name: 'Create go artifact 2',
+      run: 'cd .repo/cdk-monitoring-constructs && yarn jsii-pacmak --target go --force-target',
     },
     {
       name: 'Collect go Artifact 2',
