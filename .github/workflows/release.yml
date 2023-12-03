@@ -103,7 +103,7 @@ jobs:
       - name: Create go artifact
         run: cd .repo/datadog && npx projen package:go
       - name: Collect go Artifact
-        run: mv .repo/datadog/dist dist
+        run: ls -la .repo && mv .repo/datadog/dist dist
       - name: Create go artifact 2
         run: cd .repo/cdk-monitoring-constructs && yarn jsii-pacmak --target go --force-target
       - name: Collect go Artifact 2

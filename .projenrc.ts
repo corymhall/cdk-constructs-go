@@ -21,6 +21,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: 'cdk-constructs-go',
 });
 
+// project.gitignore.addPatterns('cdk-monitoring-constructs');
+
 new awscdk.AwsCdkConstructLibrary({
   outdir: 'datadog',
   parent: project,
@@ -41,7 +43,7 @@ project.postCompileTask.spawn(project.addTask('datadog-build', {
 project.postCompileTask.spawn(project.addTask('monitoring-build', {
   steps: [
     {
-      exec: 'git submodule update',
+      exec: 'git clone github.com/cdklabs/cdk-monitoring-constructs && rm -rf cdk-monitoring-constructs/.git',
     },
     {
       cwd: 'cdk-monitoring-constructs',
@@ -70,7 +72,7 @@ project.release?.publisher.publishToGo({
     },
     {
       name: 'Collect go Artifact',
-      run: 'mv .repo/datadog/dist dist',
+      run: 'ls -la .repo && mv .repo/datadog/dist dist',
     },
     {
       name: 'Create go artifact 2',

@@ -1,3 +1,0 @@
-[submodule "cdk-monitoring-constructs"]
-	path = cdk-monitoring-constructs
-	url = https://github.com/cdklabs/cdk-monitoring-constructs
