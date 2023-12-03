@@ -43,7 +43,7 @@ project.postCompileTask.spawn(project.addTask('datadog-build', {
 project.postCompileTask.spawn(project.addTask('monitoring-build', {
   steps: [
     {
-      exec: 'git clone github.com/cdklabs/cdk-monitoring-constructs && rm -rf cdk-monitoring-constructs/.git',
+      exec: 'git clone https://github.com/cdklabs/cdk-monitoring-constructs && rm -rf cdk-monitoring-constructs/.git',
     },
     {
       cwd: 'cdk-monitoring-constructs',
