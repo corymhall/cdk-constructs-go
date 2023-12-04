@@ -105,7 +105,7 @@ jobs:
       - name: Collect go Artifact
         run: ls -la .repo && mv .repo/datadog/dist dist
       - name: Create go artifact 2
-        run: cd .repo/cdk-monitoring-constructs && yarn jsii-pacmak --target go --force-target
+        run: cd .repo/cdk-monitoring-constructs && npx jsii-pacmak --target go --force-target
       - name: Collect go Artifact 2
         run: mv .repo/cdk-monitoring-constructs/dist/go/cdkmonitoringconstructs dist/go
       - name: Release
