@@ -76,7 +76,7 @@ project.release?.publisher.publishToGo({
     },
     {
       name: 'Create go artifact 2',
-      run: 'cd .repo/cdk-monitoring-constructs && npx jsii-pacmak --target go --force-target',
+      run: 'cd .repo/cdk-monitoring-constructs && yarn install --frozen-lockfile && npx jsii-pacmak --target go --force-target',
     },
     {
       name: 'Collect go Artifact 2',
