@@ -95,7 +95,7 @@
       "name": "datadog-build",
       "steps": [
         {
-          "exec": "rm -rf test && yarn projen build"
+          "exec": "rm -rf test && yarn compile"
         }
       ],
       "cwd": "datadog"
@@ -161,11 +161,15 @@
       "name": "monitoring-build",
       "steps": [
         {
-          "exec": "git clone https://github.com/cdklabs/cdk-monitoring-constructs && rm -rf cdk-monitoring-constructs/.git"
+          "exec": "rm -rf cdk-monitoring-constructs && git clone https://github.com/cdklabs/cdk-monitoring-constructs && rm -rf cdk-monitoring-constructs/.git"
         },
         {
           "cwd": "cdk-monitoring-constructs",
           "exec": "yarn install --frozen-lockfile"
+        },
+        {
+          "exec": "jq '.jsii.targets.go={\"moduleName\":\"github.com/corymhall/cdk-constructs-go\",\"packageName\":\"cdkmonitoringconstructs\"}' package.json > package.json.tmp && mv package.json.tmp package.json",
+          "cwd": "cdk-monitoring-constructs"
         },
         {
           "cwd": "cdk-monitoring-constructs",
@@ -190,9 +194,6 @@
       "name": "post-compile",
       "description": "Runs after successful compilation",
       "steps": [
-        {
-          "spawn": "docgen"
-        },
         {
           "spawn": "datadog-build"
         },

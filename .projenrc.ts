@@ -35,19 +35,25 @@ new awscdk.AwsCdkConstructLibrary({
   ...props,
 });
 
+project.postCompileTask.reset();
+
 project.postCompileTask.spawn(project.addTask('datadog-build', {
   cwd: 'datadog',
-  exec: 'rm -rf test && yarn projen build',
+  exec: 'rm -rf test && yarn compile',
 }));
 
 project.postCompileTask.spawn(project.addTask('monitoring-build', {
   steps: [
     {
-      exec: 'git clone https://github.com/cdklabs/cdk-monitoring-constructs && rm -rf cdk-monitoring-constructs/.git',
+      exec: 'rm -rf cdk-monitoring-constructs && git clone https://github.com/cdklabs/cdk-monitoring-constructs && rm -rf cdk-monitoring-constructs/.git',
     },
     {
       cwd: 'cdk-monitoring-constructs',
       exec: 'yarn install --frozen-lockfile',
+    },
+    {
+      exec: 'jq \'.jsii.targets.go={"moduleName":"github.com/corymhall/cdk-constructs-go","packageName":"cdkmonitoringconstructs"}\' package.json > package.json.tmp && mv package.json.tmp package.json',
+      cwd: 'cdk-monitoring-constructs',
     },
     {
       cwd: 'cdk-monitoring-constructs',
